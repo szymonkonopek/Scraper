@@ -113,7 +113,7 @@ country_dict = {"Afghanistan": "AF", "Aland Islands": "AX", "Albania": "AL",
 
 class ProxyListDownloadSpider(scrapy.Spider):
     name = "proxy-list.download"
-    allowed_domains = ["www.proxy-lisy.download"]
+    allowed_domains = ["www.proxy-list.download"]
     
     #start_urls = ["https://www.proxy-lisy.download"]
 
