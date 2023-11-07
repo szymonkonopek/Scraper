@@ -12,3 +12,4 @@ class ProxyItem(scrapy.Item):
 
     address = scrapy.Field()
     port = scrapy.Field()
+    code = scrapy.Field()

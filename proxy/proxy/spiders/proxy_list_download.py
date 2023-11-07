@@ -114,18 +114,24 @@ country_dict = {"Afghanistan": "AF", "Aland Islands": "AX", "Albania": "AL",
 class ProxyListDownloadSpider(scrapy.Spider):
     name = "proxy-list.download"
     allowed_domains = ["www.proxy-lisy.download"]
-    start_urls = ["https://www.proxy-lisy.download"]
+    
+    #start_urls = ["https://www.proxy-lisy.download"]
 
     def start_requests(self):
+        #yield from
+        code = 'US'
+        name = "USA"
         yield scrapy.Request(
-            f"https://www.proxy-lisy.download/api/v1/get?type=https",
-            callback=self.parse) 
+            f"https://www.proxy-list.download/api/v1/get?type=https&country={code}",
+            callback=self.parse, meta={"country": {"name": name, "code": code}} )
+            #for name, code in country_dict.items()
 
     def parse(self, response):
-        for line in response.body.splitLines():
+        for line in response.body.splitlines():
             proxy = line.decode()
             host, port = proxy.split(':')
-            yield ProxyItem(**{"address": host, "port": port})
+
+            yield ProxyItem(**{"address": host, "port": port, "code": response.meta["country"]["code"],})
 
 
 
